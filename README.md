@@ -6,8 +6,10 @@
 - python3
 
 - linux/macos/windows
-
+---
 - windows环境配置参考热心网友的文章[Python构建快速高效的中文文字识别OCR](https://blog.csdn.net/lly1122334/article/details/104752851) 👍
+- windows环境运行需要手动编译psenet/pse目录下的pse.cpp为DLL，为了方便新增支持python3.5和python3.6的pyd文件，在windows平台运行
+的时候需要根据自己环境的python版本更改对应的pyd文件为pse.pyd即可
 
 - Docker 环境
 
@@ -35,7 +37,6 @@ make
 - [ ]  mnn  实现 
 
 
-
 # 2020.03.16更新
 - psenet ncnn核扩展实现，有效解决粘连文本检测问题，详见[ncnn ocr一条龙](https://github.com/ouyanghuiyu/chineseocr_lite/tree/master/ncnn_project/ocr)
 - nihui大佬实现的[crnn_lstm推理](https://github.com/ouyanghuiyu/chineseocr_lite/pull/41) 具体操作详解: [详细记录超轻量中文OCR LSTM模型ncnn实现](https://zhuanlan.zhihu.com/p/113338890?utm_source=qq&utm_medium=social&utm_oi=645149500650557440)
@@ -55,20 +56,28 @@ make
   <img width="256" height="32" src="https://github.com/ouyanghuiyu/chineseocr_lite/blob/master/vertical_text_fonts/imgs/00187940.jpg"/>
 
 
-
- 
-
-
 ## web服务启动
 ``` Bash
 cd chineseocr_lite## 进入chineseocr目录
 python app.py 8080 ##8080端口号，可以设置任意端口
 ```
-
 ## 访问服务
 http://127.0.0.1:8080/ocr
 
 
+## Flask-RESTful API demo
+`cd chineseocr_lite && python flask_app.py`
+```text
+- 请求url: http://ip:port/api/v1/ocr
+- 请求方式：POST
+- 请求参数
+    - imgString：图片转base64后的字符串， str
+- 返回实例
+{
+    "code": "SUCCESS",
+    "text": "不配图我总觉得不舒服不完整不专业"
+}
+```
 ## 识别结果展示
 
 <img width="500" height="300" src="https://github.com/ouyanghuiyu/chineseocr_lite/blob/master/test_imgs/5_res.jpg"/>
